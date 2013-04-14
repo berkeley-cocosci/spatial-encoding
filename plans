@@ -1,0 +1,17 @@
+Given the set of descriptions, output all possible layouts that fit the constraints
+- constraint satisfaction based on all given descriptions
+- aay have free variables/multiple possible valid results
+- always contains the intended correct result
+
+Input descriptions in succession and output the updated possible layouts after each additional constraint
+- allow for input updating new relations
+- most recent output of layouts fits all constraints given up to and including the most recently added one
+
+Extras
+- Parameters: error type, probability of error
+- Error types: left/right or top/down switches, flips/rotations, ...
+- Probability of error: alter layouts to reflect the given error type according to the given probability
+
+Questions
+- How to handle inputs in the set or additional input constraints that are impossible to realize for any of the
+  possible layouts up to date?
