@@ -11,7 +11,18 @@ Extras
 - Parameters: error type, probability of error
 - Error types: left/right or top/down switches, flips/rotations, ...
 - Probability of error: alter layouts to reflect the given error type according to the given probability
+- Throw error if constraint(s) are impossible to realize for any of the layouts up to date?
 
-Questions
-- How to handle inputs in the set or additional input constraints that are impossible to realize for any of the
-  possible layouts up to date?
+
+More Ideas:
+Use "relation" instead of position
+
+Create class of positions
+Dog.leftOf(Cat)
+to add the positions
+for now, have leftOf and relations be in the same straight line
+leftOf includes the in same row/line constraint. we can remove it later on
+
+have a 6x6 grid to incorporate all possible formations of 6 room relations
+maintain grid for each animal and block out impossible locations given constraints
+overlay/find intersections
