@@ -6,9 +6,15 @@
 
 class Constraint(object):
 
+<<<<<<< HEAD
   def __init__(self, piv, pos, item):
 		self.pivot = piv
 		self.position = pos
+=======
+	def __init__(self, piv, rel, item):
+		self.pivot = piv
+		self.relation = rel
+>>>>>>> Transfer local spatial_learning.py file to repo
 		self.item = item
 
 	def __init__(self, msg):
@@ -58,6 +64,11 @@ class Experiment(object):
 			for layout in results:
 				layout.add_constraint(msg)
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Transfer local spatial_learning.py file to repo
 #To test my hand in python...it's been a while
 def main(*args):
 	input_var = raw_input("Enter constraint: ")
