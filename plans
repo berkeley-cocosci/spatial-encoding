@@ -1,3 +1,6 @@
+---------------------
+   Initial outline
+---------------------
 Given the set of descriptions, output all possible layouts that fit the constraints
 - constraint satisfaction based on all given descriptions
 - aay have free variables/multiple possible valid results
@@ -14,15 +17,56 @@ Extras
 - Throw error if constraint(s) are impossible to realize for any of the layouts up to date?
 
 
+---------------------
+  Update 4/16/2013
+---------------------
 More Ideas:
-Use "relation" instead of position
+Use "relation" instead of "position"
 
 Create class of positions
-Dog.leftOf(Cat)
-to add the positions
-for now, have leftOf and relations be in the same straight line
-leftOf includes the in same row/line constraint. we can remove it later on
+Methods to add the positions such as: Dog.leftOf(Cat)
+For now, have relations be in straight lines (same column/row)
+Position adding methods test the 'in same line' constraint separately for easy future removal
 
-have a 6x6 grid to incorporate all possible formations of 6 room relations
-maintain grid for each animal and block out impossible locations given constraints
-overlay/find intersections
+Have a nxn grid, where n is the total number of rooms, to incorporate all possible layouts
+Maintain a grid for each room and block out impossible locations given the constraints
+To get the final layout formation, overlay the grids and find the intersections.
+
+
+---------------------
+  Update 4/22/2013
+---------------------
+Classes: Room, Grid, Experiment
+
+Room
+- item: animal in it
+- grid of possible locations for this room
+- location of this room
+	(commented out in code for now, unsure if needed)
+- set neighbours by relations
+
+Grid
+- represents the nxn grid that can accomodate all possibilities for n total number of rooms
+- represent invalid locations
+- toString for easy testing and printing results
+
+Experiment
+- the "main" method
+- generate list all possible grids/layouts
+
+**Questions**
+line 10: how to get grid size without making room keep track of total number of rooms (which seems inappropriate for abstraction concerns); some java static variable equivalent in python?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
