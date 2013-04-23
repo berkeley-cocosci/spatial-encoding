@@ -58,10 +58,21 @@ Experiment
 line 10: how to get grid size without making room keep track of total number of rooms 
 (which seems inappropriate for abstraction concerns); some java static variable equivalent in python?
 
+Alternative Ideas
+- Digraph representation
+- Edges with direction/relation identifiers (left/right/top/bottom)
 
 
+---------------------
+  Update 4/23/2013
+---------------------
+"World" instead of "Grid"
+Change grid to store the list of rooms you have (independent of locations)
+Add a list of lists, each item in the list is the room, each sublist is the list of all possible locations
 
-
+Experiment
+With each added constraint, print out information about the update
+Unit test: start with 3x3 and 2 animals, make sure worlds that you know should exist do in fact show up as possible
 
 
 

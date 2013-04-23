@@ -1,11 +1,11 @@
-import math
-
 """
 spatial_learning.py
 
 
 """
 
+class Room(object):
+	
 	def __init__(self, obj="X", x=0, y=0):
 		self.total_rooms = num #total number of rooms
 
@@ -62,7 +62,7 @@ class Grid(object):
 	def add_to(room, x, y):
 		"""Adds the given room to location (x,y) in the grid"""
 		locs[x][y] = room
-		room.set_location(x, y)
+		#room.set_location(x, y)
 
 	def ignore_column(x):
 		"""Sets the column x to Rooms with item 'X', representing an invalid location"""
