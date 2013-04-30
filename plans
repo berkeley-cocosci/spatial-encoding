@@ -67,8 +67,8 @@ Alternative Ideas
   Update 4/23/2013
 ---------------------
 "World" instead of "Grid"
-Change grid to store the list of rooms you have (independent of locations)
-Add a list of lists, each item in the list is the room, each sublist is the list of all possible locations
+Change Grid (now World) to store the list of rooms you have (independent of locations, locations only stored in Room)
+Add a list of lists, each item in the list is the animal, each sublist is the list of all possible locations (Rooms)
 
 Experiment
 With each added constraint, print out information about the update
