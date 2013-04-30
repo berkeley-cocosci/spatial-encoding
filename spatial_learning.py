@@ -71,7 +71,7 @@ class World(object):
 
     def copy(self):
         """Creates and returns a copy of this World"""
-        World new_world = World(self.animals)
+        new_world = World(self.animals)
         return new_world
 
     def to_string():
@@ -88,8 +88,13 @@ class World(object):
 
 class Experiment(object):
 
-    def __init__(self, animals=[], constraints=[]):
+    def __init__(self, animals=None, constraints=None):
         """Initializes an experiment with all possible worlds given animals and constraints"""
+        if animal is None:
+            animal = []
+        if constraints is None:
+            constraints = []
+
         self.animals = animals
         self.constraints = constraints
         self.possible_worlds = []
@@ -98,7 +103,7 @@ class Experiment(object):
             for y in xrange(len(animals)):
                 world = World(animals)
                 world.set_position(animals[0], x, y)
-                possible_worlds.append(world)
+                self.possible_worlds.append(world)
         update()
 
     def update():
@@ -107,7 +112,7 @@ class Experiment(object):
             return None
         for animal in animals[1:]:
             new_possible_worlds = []
-            for world in possible_worlds:
+            for world in self.possible_worlds:
                 new_worlds = []
                 for x in xrange(len(animals)):
                     for y in xrange(len(animals)):
@@ -126,7 +131,7 @@ class Experiment(object):
                 if len(new_worlds) > 0:
                     new_possible_worlds.append(new_worlds)
 
-            possible_worlds = new_possible_worlds
+            self.possible_worlds = new_possible_worlds
 
 
     def add_animal(animal):
@@ -134,6 +139,7 @@ class Experiment(object):
            Does nothing if the animal already exists."""
         if animal not in self.animals:
             self.animals.append(animal)
+        update()
 
     def add_constraint(constraint):
         """Adds the constraint to the list of constraints in this Experiment.
@@ -143,6 +149,7 @@ class Experiment(object):
         self.add_animal(constraint[0])
         self.add_animal(constraint[1])
         self.constraints.append(constraint)
+        update()
 
     def main(*args):
         animals = ['cat', 'dog', 'fish']

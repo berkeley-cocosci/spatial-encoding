@@ -5,16 +5,6 @@ from spatial_learning import Room, World, Experiment
 def test_room_init():
     return None
 
-def test_room_relations():
-    print("Testing left_of")
-    test_room_left_of()
-    print("Testing right_of")
-    test_room_right_of()
-    print("Testing in_front_of")
-    test_room_in_front_of()
-    print("Testing in_back_of")
-    test_room_in_back_of()
-
 def test_is_left_of():
     r1 = Room(1, 1)
     r2 = Room(2, 2)
@@ -68,7 +58,7 @@ def test_experiment_init():
     exp = Experiment(animals, constraints)
     assert exp.animals == animals
     assert exp.constraints == constraints
-    
+
 
 def test_add_animal():
     exp = Experiment()
@@ -89,22 +79,18 @@ def test_update():
     return None
 
 
+# Not needed for using Nose
+# """Main testing method"""
+# def main(*args):
+#     print("Testing Room")
+#     test_room_init()
+#     test_room_relations()
+#     print("Testing World")
+#     test_world_init()
+#     test_set_position()
+#     test_test_constraint()
+#     test_copy()
+#     print("Testing Experiment")
 
-"""Main testing method"""
-@main
-def main(*args):
-    print("Testing Room")
-    test_room_init()
-    test_room_relations()
-
-    print("Testing World")
-    test_world_init()
-    test_set_position()
-    test_test_constraint()
-    test_copy()
-
-    print("Testing Experiment")
-
-
-main()
+# main()
 
