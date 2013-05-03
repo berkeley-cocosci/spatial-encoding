@@ -75,10 +75,12 @@ With each added constraint, print out information about the update
 Unit test: start with 3x3 and 2 animals, make sure worlds that you know should exist do in fact show up as possible
 
 
-
-
-
-
-
-
+---------------------
+  Update 4/30/2013
+---------------------
+Goals to reach before next meeting:
+- Complete unit testing and debugging
+- Debug program for running from main() and handling user input appropriately
+- Ensure program is usable to begin testing constraints
+- Check that code is fully documented as needed
 
