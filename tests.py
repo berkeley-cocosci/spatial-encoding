@@ -3,7 +3,9 @@ from spatial_learning import Room, World, Experiment
 """Tests for Room"""
 
 def test_room_init():
-    return None
+    r1 = Room(1, 1)
+    r2 = Room(1, 2)
+    
 
 def test_is_left_of():
     r1 = Room(1, 1)
@@ -18,14 +20,14 @@ def test_is_right_of():
     assert not r2.is_right_of(r1)
 
 def test_is_in_front_of():
-    r1 = Room(2, 2)
-    r2 = Room(1, 1)
+    r1 = Room(1, 1)
+    r2 = Room(2, 2)
     assert r1.is_in_front_of(r2)
     assert not r2.is_in_front_of(r1)
 
 def test_is_in_back_of():
-    r1 = Room(1, 1)
-    r2 = Room(2, 2)
+    r1 = Room(2, 2)
+    r2 = Room(1, 1)
     assert r1.is_in_back_of(r2)
     assert not r2.is_in_back_of(r1)
 
@@ -45,8 +47,8 @@ def test_test_constraint():
 def test_copy():
     w1 = World()
     w2 = w1.copy()
-    assert w1 is w2 #not the same object
-    assert w1.toString() == w2.toString() #but the identical contents
+    assert w1 is not w2 #not the same object
+    assert w1.to_string() == w2.to_string() #but identical contents
 
 
 
@@ -59,38 +61,23 @@ def test_experiment_init():
     assert exp.animals == animals
     assert exp.constraints == constraints
 
-
 def test_add_animal():
     exp = Experiment()
     exp.add_animal('dog')
     exp.add_animal('cat')
     assert exp.animals == ['dog', 'cat']
+    exp.add_animal('frog')
+    exp.add_animal('cat')
+    assert exp.animals == ['dog', 'cat', 'frog']
 
 def test_add_constraint():
-    c1 = ('dog', 'left of', 'cat')
-    c2 = ('dog', 'in front of', 'frog')
-    exp = Experiment(['dog', 'cat'])
+    c1 = ('dog', 'in front of', 'frog')
+    exp = Experiment(['dog'])
     exp.add_constraint(c1)
-    exp.add_constraint(c2)
-    assert exp.animals == ['dog', 'cat', 'frog']
-    assert exp.constraints == [c1, c2]
+    assert exp.animals == ['dog', 'frog']
+    assert exp.constraints == [c1]
 
 def test_update():
     return None
 
-
-# Not needed for using Nose
-# """Main testing method"""
-# def main(*args):
-#     print("Testing Room")
-#     test_room_init()
-#     test_room_relations()
-#     print("Testing World")
-#     test_world_init()
-#     test_set_position()
-#     test_test_constraint()
-#     test_copy()
-#     print("Testing Experiment")
-
-# main()
 

@@ -13,12 +13,13 @@ class Room(object):
         self.y = y
 
     def is_in_back_of(self, other):
-        """Returns true if self is in the back of other, false otherwise"""
+        """Returns true if self is in the back of other, false otherwise
+           An object is considered in back of if its y-coordinate is greater"""
         return self.y > other.y
 
     def is_in_front_of(self, other):
         """Returns true if self in in front of other, false otherwise"""
-        return other.in_back_of(self)
+        return other.is_in_back_of(self)
 
     def is_left_of(self, other):
         """Returns true if self is left of other, false otherwise"""
@@ -28,7 +29,7 @@ class Room(object):
         """Returns true if self is right of other, false otherwise"""
         return other.is_left_of(self)
 
-    def to_string():
+    def to_string(self):
         """Returns the string representation of this Room"""
         return "Room at (%d, %d)" % (self.x, self.y)
 
@@ -37,9 +38,11 @@ class Room(object):
 class World(object):
     """A World has animals and sets them to Rooms given constraints"""
 
-    def __init__(self, animals):
+    def __init__(self, animals=None):
         """Constructs a World with the given animals with Rooms initialized to None"""
         self.animals = {}
+        if animals is None:
+            animals = []
         for a in animals:
             self.animals[a] = None
 
@@ -74,11 +77,13 @@ class World(object):
         new_world = World(self.animals)
         return new_world
 
-    def to_string():
+    def to_string(self):
         """Prints the string representation of this World"""
         output = ""
         for animal in self.animals:
             output += animal+"\n"
+            print(animal)
+            print(self.animals)
             for room in self.animals[animal]:
                 output += room.to_string()+"\n"
                 print(output+" ")
@@ -90,8 +95,10 @@ class Experiment(object):
 
     def __init__(self, animals=None, constraints=None):
         """Initializes an experiment with all possible worlds given animals and constraints"""
-        if animal is None:
-            animal = []
+        self.valid_relations = ['left of', 'right of', 'in front of', 'in back of']
+
+        if animals is None:
+            animals = []
         if constraints is None:
             constraints = []
 
@@ -99,28 +106,34 @@ class Experiment(object):
         self.constraints = constraints
         self.possible_worlds = []
         #Initialize the first animal (constraints trivial) to all positions
-        for x in xrange(len(animals)):
-            for y in xrange(len(animals)):
-                world = World(animals)
-                world.set_position(animals[0], x, y)
+        for x in xrange(len(self.animals)):
+            for y in xrange(len(self.animals)):
+                world = World(self.animals)
+                world.set_position(self.animals[0], x, y)
                 self.possible_worlds.append(world)
-        update()
+        self.update()
 
-    def update():
+    def update(self):
         """Updates the possible worlds for this Experiment"""
-        if len(animals) <= 1:
+        num_animals = len(self.animals)
+        if num_animals <= 1:
             return None
-        for animal in animals[1:]:
+
+        for animal in self.animals[1:]:
             new_possible_worlds = []
+
             for world in self.possible_worlds:
                 new_worlds = []
-                for x in xrange(len(animals)):
-                    for y in xrange(len(animals)):
+                if animal not in world.animals.keys():
+                     world.animals[animal] = None
+
+                for x in xrange(num_animals):
+                    for y in xrange(num_animals):
                         new_world = world.copy()
                         new_world.set_position(animal, x, y)
                         valid = True
 
-                        for constraint in constraints:
+                        for constraint in self.constraints:
                             valid = new_world.test_constraint(constraint)
                             if not valid:
                                 break
@@ -129,43 +142,63 @@ class Experiment(object):
                             new_worlds.append(new_world)
 
                 if len(new_worlds) > 0:
-                    new_possible_worlds.append(new_worlds)
+                    for w in new_worlds:
+                        new_possible_worlds.append(w)
 
             self.possible_worlds = new_possible_worlds
 
-
-    def add_animal(animal):
+    def add_animal(self, animal):
         """Adds the animal to the list of animals in this Experiment.
            Does nothing if the animal already exists."""
         if animal not in self.animals:
             self.animals.append(animal)
-        update()
+        self.update()
 
-    def add_constraint(constraint):
+    def add_constraint(self, constraint):
         """Adds the constraint to the list of constraints in this Experiment.
            Adds animals included in the constraint as needed."""
-        if len(constraint) < 3:
+        if type(constraint) is not tuple or len(constraint) < 3:
             raise ValueError("Invalid constraint format")
+        elif constraint[1] not in self.valid_relations:
+            raise ValueError("Invalid relation %s" % constraint[1])
         self.add_animal(constraint[0])
-        self.add_animal(constraint[1])
+        self.add_animal(constraint[2])
         self.constraints.append(constraint)
-        update()
+        self.update()
 
     def main(*args):
-        animals = ['cat', 'dog', 'fish']
+        animals = []
+        constraints = []
 
-        # Possible relations: in front of, in back of, left of, right of
-        constraints = [
-            ('cat', 'in front of', 'dog'),
-            ('dog', 'left of', 'fish')
-        ]
-
-        experiment = Experiment(animals, constraints)
-        print("Possible relations are: in front of, in back of, left of, right of.")
-        while (animal != "done"):
+        while True:
             animal = raw_input("Enter animal (or \"done\"): ")
-            experiment.add_animal(animal)
-        while (constraint != "done"):
-            constraint = raw_input("Enter constraint (or \"done\"): ")
-            experiment.add_constraint(constraint)
+            if animal == 'done':
+                break
+            animals.append(animal)
+        experiment = Experiment(animals, constraints)
+
+        print("\nConstraint format: animal1, relation, animal2")
+        print("Valid relations are %s" % experiment.valid_relations)
+        while True:
+            try:
+                constraint = raw_input("Enter constraint (or \"done\"): ")
+                if constraint == 'done':
+                    break
+                constraint_tuple = tuple(x.strip() for x in constraint.split(','))
+                experiment.add_constraint(constraint_tuple)
+            except ValueError as e:
+                print(e)
+                pass
+
+        print(experiment.animals)
+        print(experiment.constraints)
+        print(len(experiment.possible_worlds))
+        for w in experiment.possible_worlds:
+            print(w.to_string())
+
+
+
+
+#Experiment().main()
+
 
