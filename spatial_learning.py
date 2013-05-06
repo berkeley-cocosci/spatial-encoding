@@ -118,6 +118,8 @@ class Experiment(object):
 
     def update(self):
         """Updates the possible worlds for this Experiment"""
+        print("Updating...")
+
         num_animals = len(self.animals)
         if num_animals <= 1:
             return None
@@ -172,13 +174,14 @@ class Experiment(object):
     def main(*args):
         animals = []
         constraints = []
-
         while True:
             animal = raw_input("Enter animal (or \"done\"): ")
             if animal == 'done':
                 break
             animals.append(animal)
-        experiment = Experiment(animals, constraints)
+        experiment = Experiment(None, constraints)
+        for a in animals:
+            experiment.add_animal(a)
 
         print("\nConstraint format: animal1, relation, animal2")
         print("Valid relations are %s" % experiment.valid_relations)
@@ -188,7 +191,6 @@ class Experiment(object):
                 if constraint == 'done':
                     break
                 constraint_tuple = tuple(x.strip() for x in constraint.split(','))
-                print(constraint_tuple)
                 experiment.add_constraint(constraint_tuple)
             except ValueError as e:
                 print(e)
@@ -196,11 +198,12 @@ class Experiment(object):
 
         print(experiment.animals)
         print(experiment.constraints)
+        print(experiment.possible_worlds)
         print(len(experiment.possible_worlds))
         for w in experiment.possible_worlds:
             print(w.to_string())
 
 
-#Experiment().main()
+Experiment().main()
 
 
