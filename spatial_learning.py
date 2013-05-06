@@ -85,10 +85,11 @@ class World(object):
         output = ""
         for animal in self.animals:
             output += animal+"\n"
-            print(animal)
-            print(self.animals)
-            for room in self.animals[animal]:
-                output += room.to_string()+"\n"
+            for room in [self.animals[animal]]:
+                if room is None:
+                    output += "None"
+                else:
+                    output += room.to_string()
                 print(output+" ")
             print("\n")
 
@@ -108,21 +109,19 @@ class Experiment(object):
         self.animals = animals
         self.constraints = constraints
         self.possible_worlds = []
-        #Initialize the first animal (constraints trivial) to all positions
-        for x in xrange(len(self.animals)):
-            for y in xrange(len(self.animals)):
-                world = World(self.animals)
-                world.set_position(self.animals[0], x, y)
-                self.possible_worlds.append(world)
         self.update()
 
     def update(self):
         """Updates the possible worlds for this Experiment"""
-        print("Updating...")
-
         num_animals = len(self.animals)
-        if num_animals <= 1:
-            return None
+
+        if num_animals == 1:
+            #Initialize the first animal (constraints trivial) to all positions
+            for x in xrange(num_animals):
+                for y in xrange(num_animals):
+                    world = World(self.animals)
+                    world.set_position(self.animals[0], x, y)
+                    self.possible_worlds.append(world)
 
         for animal in self.animals[1:]:
             new_possible_worlds = []
@@ -151,6 +150,11 @@ class Experiment(object):
                         new_possible_worlds.append(w)
 
             self.possible_worlds = new_possible_worlds
+
+        #Debugging print statements
+        print("possible worlds %s" % self.possible_worlds)
+        for w in self.possible_worlds:
+            print(w.to_string())
 
     def add_animal(self, animal):
         """Adds the animal to the list of animals in this Experiment.
@@ -196,9 +200,9 @@ class Experiment(object):
                 print(e)
                 pass
 
-        print(experiment.animals)
-        print(experiment.constraints)
-        print(experiment.possible_worlds)
+        # print("animals: %s" % experiment.animals)
+        # print("constraints: %s" % experiment.constraints)
+        # print("worlds:\n%s" % experiment.possible_worlds)
         print(len(experiment.possible_worlds))
         for w in experiment.possible_worlds:
             print(w.to_string())
