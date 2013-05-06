@@ -63,7 +63,18 @@ def test_set_position():
     assert w2.animals['cat'].y == 0
 
 def test_test_constraint():
-    return None
+    animals = ['dog', 'cat']
+    w1 = World(animals)
+    c1 = ('dog', 'left of', 'cat')
+    c2 = ('cat', 'right of', 'dog')
+    c3 = ('dog', 'in front of', 'cat')
+    c4 = ('cat', 'in back of', 'dog')
+    w1.set_position('dog', 1, 1)
+    w1.set_position('cat', 2, 2)
+    assert w1.test_constraint(c1)
+    assert w1.test_constraint(c2)
+    assert w1.test_constraint(c3)
+    assert w1.test_constraint(c4)
 
 def test_copy():
     w1 = World()
