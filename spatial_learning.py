@@ -48,7 +48,10 @@ class World(object):
 
     def set_position(self, animal, x, y):
         """Sets the given animal to a new Room at position (x, y) and returns the room.
+            Adds the animal to animals if it does not already exist.
             Raises a ValueError if the animal is already set."""
+        if animal not in self.animals:  
+            self.animals[animal] = None
         if self.animals[animal] is None:
             room = Room(x, y)
             self.animals[animal] = room
@@ -152,7 +155,7 @@ class Experiment(object):
            Does nothing if the animal already exists."""
         if animal not in self.animals:
             self.animals.append(animal)
-        self.update()
+            self.update()
 
     def add_constraint(self, constraint):
         """Adds the constraint to the list of constraints in this Experiment.
@@ -185,6 +188,7 @@ class Experiment(object):
                 if constraint == 'done':
                     break
                 constraint_tuple = tuple(x.strip() for x in constraint.split(','))
+                print(constraint_tuple)
                 experiment.add_constraint(constraint_tuple)
             except ValueError as e:
                 print(e)
@@ -195,8 +199,6 @@ class Experiment(object):
         print(len(experiment.possible_worlds))
         for w in experiment.possible_worlds:
             print(w.to_string())
-
-
 
 
 #Experiment().main()

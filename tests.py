@@ -36,10 +36,31 @@ def test_is_in_back_of():
 """Tests for World"""
 
 def test_world_init():
-    return None
+    w1 = World()
+    assert len(w1.animals) == 0
+    animals = ['dog', 'cat']
+    w2 = World(animals)
+    assert len(w2.animals) == 2
+    assert w2.animals['dog'] is None
+    assert w2.animals['cat'] is None
 
 def test_set_position():
-    return None
+    w1 = World()
+    w1.set_position('dog', 1, 1)
+    assert w1.animals['dog'].x == 1
+    assert w1.animals['dog'].y == 1
+    try:
+        w1.set_position('dog', 0, 0)
+    except Exception as e:
+        assert type(e) is ValueError
+
+    w2 = World(['dog'])
+    w2.set_position('dog', 1, 1)
+    assert w2.animals['dog'].x == 1
+    assert w2.animals['dog'].y == 1
+    w2.set_position('cat', 0, 0)
+    assert w2.animals['cat'].x == 0
+    assert w2.animals['cat'].y == 0
 
 def test_test_constraint():
     return None
