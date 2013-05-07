@@ -77,7 +77,8 @@ def test_test_constraint():
     assert w1.test_constraint(c4)
 
 def test_copy():
-    w1 = World()
+    w1 = World(['dog'])
+    w1.set_position('dog', 1, 1)
     w2 = w1.copy()
     assert w1 is not w2 #not the same object
     assert w1.to_string() == w2.to_string() #but identical contents
