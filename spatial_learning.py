@@ -40,11 +40,14 @@ class World(object):
 
     def __init__(self, animals=None):
         """Constructs a World with the given animals with Rooms initialized to None"""
-        self.animals = {}
-        if animals is None:
-            animals = []
-        for a in animals:
-            self.animals[a] = None
+        if type(animals) is dict:
+            self.animals = animals
+        else:
+            self.animals = {}
+            if animals is None:
+                animals = []
+            for a in animals:
+                self.animals[a] = None
 
     def set_position(self, animal, x, y):
         """Sets the given animal to a new Room at position (x, y) and returns the room.
@@ -81,17 +84,17 @@ class World(object):
         return new_world
 
     def to_string(self):
-        """Prints the string representation of this World"""
+        """Returns the string representation of this World"""
         output = ""
         for animal in self.animals:
-            output += animal+"\n"
+            output += "Animal is %s \n" % animal
             for room in [self.animals[animal]]:
                 if room is None:
-                    output += "None"
+                    output += "Room is None"
                 else:
                     output += room.to_string()
-                print(output+" ")
-            print("\n")
+                output += "\n"
+        return output
 
 
 
@@ -115,13 +118,20 @@ class Experiment(object):
         """Updates the possible worlds for this Experiment"""
         num_animals = len(self.animals)
 
-        if num_animals == 1:
-            #Initialize the first animal (constraints trivial) to all positions
-            for x in xrange(num_animals):
-                for y in xrange(num_animals):
-                    world = World(self.animals)
-                    world.set_position(self.animals[0], x, y)
-                    self.possible_worlds.append(world)
+        #Initialize the first animal (constraints trivial) to all positions
+        self.possible_worlds = []
+        for x in xrange(num_animals):
+            for y in xrange(num_animals):
+                world = World(self.animals)
+                world.set_position(self.animals[0], x, y)
+                self.possible_worlds.append(world)
+
+        #DEBUGGING
+        print(self.animals)
+        print("Possible worlds @HERE are %s" % self.possible_worlds)
+        for w in self.possible_worlds:
+            print(w.to_string())
+        ###
 
         for animal in self.animals[1:]:
             new_possible_worlds = []
@@ -129,11 +139,17 @@ class Experiment(object):
             for world in self.possible_worlds:
                 new_worlds = []
                 if animal not in world.animals.keys():
-                     world.animals[animal] = None
+                    world.animals[animal] = None
 
                 for x in xrange(num_animals):
                     for y in xrange(num_animals):
                         new_world = world.copy()
+
+                        #DEBUGGING
+                        print("world here is %s" % world.to_string())
+                        print("new_world here is %s" % new_world.to_string())
+                        ###
+
                         new_world.set_position(animal, x, y)
                         valid = True
 
@@ -151,10 +167,11 @@ class Experiment(object):
 
             self.possible_worlds = new_possible_worlds
 
-        #Debugging print statements
-        print("possible worlds %s" % self.possible_worlds)
+        #DEBUGGING
+        print("end of update possible worlds %s" % self.possible_worlds)
         for w in self.possible_worlds:
             print(w.to_string())
+        ###
 
     def add_animal(self, animal):
         """Adds the animal to the list of animals in this Experiment.
@@ -200,6 +217,7 @@ class Experiment(object):
                 print(e)
                 pass
 
+        #End result print statements
         # print("animals: %s" % experiment.animals)
         # print("constraints: %s" % experiment.constraints)
         # print("worlds:\n%s" % experiment.possible_worlds)
