@@ -68,7 +68,7 @@ Alternative Ideas
 ---------------------
 "World" instead of "Grid"
 Change Grid (now World) to store the list of rooms you have (independent of locations, locations only stored in Room)
-Add a list of lists, each item in the list is the animal, each sublist is the list of all possible locations (Rooms)
+Add a dictionary, each key is the animal, each value is the list of all possible locations (Rooms)
 
 Experiment
 With each added constraint, print out information about the update
