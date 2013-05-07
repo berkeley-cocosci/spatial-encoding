@@ -151,6 +151,7 @@ class Experiment(object):
 
                         if valid:
                             new_worlds.append(new_world)
+                            print new_world
 
                 if len(new_worlds) > 0:
                     for w in new_worlds:
@@ -158,17 +159,17 @@ class Experiment(object):
 
             self.possible_worlds = new_possible_worlds
 
-        print "-"*70
-        print 'Possible worlds:'
-        for i in self.possible_worlds:
-            print i
+            # print "-"*70
+            # print 'Possible worlds:'
+            # for i in self.possible_worlds:
+            #     print i
 
     def add_animal(self, animal):
         """Adds the animal to the list of animals in this Experiment.
            Does nothing if the animal already exists."""
         if animal not in self.animals:
             self.animals.append(animal)
-            self.update()
+            #self.update()
 
     def add_constraint(self, constraint):
         """Adds the constraint to the list of constraints in this Experiment.
@@ -180,7 +181,7 @@ class Experiment(object):
         self.add_animal(constraint[0])
         self.add_animal(constraint[2])
         self.constraints.append(constraint)
-        self.update()
+        #self.update()
 
     def main(*args):
         animals = []
@@ -207,6 +208,8 @@ class Experiment(object):
                 print(e)
                 pass
 
+        experiment.update()
+
         #End result print statements
         # print("animals: %s" % experiment.animals)
         # print("constraints: %s" % experiment.constraints)
@@ -216,6 +219,24 @@ class Experiment(object):
             print(w)
 
 if __name__ == "__main__":
-    Experiment().main()
+    #Experiment().main()
 
+    animals = ['cat', 'dog', 'bear', 'rabbit', 'pig', 'frog']
+    constraints = [
+        ('cat', 'left of', 'rabbit'),
+        ('pig', 'left of', 'cat'),
+        ('dog', 'in front of', 'pig'),
+        ('bear', 'right of', 'dog'),
+        ('frog', 'right of', 'bear')
+    ]
 
+    experiment = Experiment()
+    for a in animals:
+        experiment.add_animal(a)
+    for c in constraints:
+        experiment.add_constraint(c)
+
+    experiment.update()
+    for w in experiment.possible_worlds:
+        print w
+    print len(experiment.possible_worlds)
