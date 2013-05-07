@@ -80,7 +80,8 @@ class World(object):
 
     def copy(self):
         """Creates and returns a copy of this World"""
-        new_world = World(self.animals)
+        new_animals = self.animals
+        new_world = World(new_animals)
         return new_world
 
     def to_string(self):
@@ -126,13 +127,6 @@ class Experiment(object):
                 world.set_position(self.animals[0], x, y)
                 self.possible_worlds.append(world)
 
-        #DEBUGGING
-        print(self.animals)
-        print("Possible worlds @HERE are %s" % self.possible_worlds)
-        for w in self.possible_worlds:
-            print(w.to_string())
-        ###
-
         for animal in self.animals[1:]:
             new_possible_worlds = []
 
@@ -144,13 +138,14 @@ class Experiment(object):
                 for x in xrange(num_animals):
                     for y in xrange(num_animals):
                         new_world = world.copy()
-
                         #DEBUGGING
-                        print("world here is %s" % world.to_string())
-                        print("new_world here is %s" % new_world.to_string())
+                        print("world here is \n%s" % world.to_string())
                         ###
-
                         new_world.set_position(animal, x, y)
+                        #DEBUGGING
+                        print("world after set_position is \n%s" % world.to_string())
+                        print("^world should not be altered \n")
+                        ###
                         valid = True
 
                         for constraint in self.constraints:
@@ -166,12 +161,6 @@ class Experiment(object):
                         new_possible_worlds.append(w)
 
             self.possible_worlds = new_possible_worlds
-
-        #DEBUGGING
-        print("end of update possible worlds %s" % self.possible_worlds)
-        for w in self.possible_worlds:
-            print(w.to_string())
-        ###
 
     def add_animal(self, animal):
         """Adds the animal to the list of animals in this Experiment.
