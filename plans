@@ -93,7 +93,7 @@ Goals for next meeting:
 - Memoization: Rooms, Worlds
     __new__ gets called before the object is even created (see example in Room in spatial_learning.py)
     do the same thing with world
-
+- Use sets with worlds to see if one already exists then don't duplicate it
 - Checkout stackoverflow question on python's use of init and new
 
 
