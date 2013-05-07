@@ -1,3 +1,4 @@
 *.pyc
 scrap2.py
 *~
+.DS_Store
