@@ -29,6 +29,10 @@ class Room(object):
         """Returns true if self is right of other, false otherwise"""
         return other.is_left_of(self)
 
+    def copy(self):
+        new_room = Room(self.x, self.y)
+        return new_room
+
     def to_string(self):
         """Returns the string representation of this Room"""
         return "Room at (%d, %d)" % (self.x, self.y)
@@ -80,7 +84,12 @@ class World(object):
 
     def copy(self):
         """Creates and returns a copy of this World"""
-        new_animals = self.animals
+        new_animals = {}
+        for a in self.animals:
+            if self.animals[a] is None:
+                new_animals[a] = None
+            else:
+                new_animals[a] = self.animals[a].copy()
         new_world = World(new_animals)
         return new_world
 
@@ -138,14 +147,7 @@ class Experiment(object):
                 for x in xrange(num_animals):
                     for y in xrange(num_animals):
                         new_world = world.copy()
-                        #DEBUGGING
-                        print("world here is \n%s" % world.to_string())
-                        ###
                         new_world.set_position(animal, x, y)
-                        #DEBUGGING
-                        print("world after set_position is \n%s" % world.to_string())
-                        print("^world should not be altered \n")
-                        ###
                         valid = True
 
                         for constraint in self.constraints:
@@ -214,7 +216,7 @@ class Experiment(object):
         for w in experiment.possible_worlds:
             print(w.to_string())
 
-
-Experiment().main()
+if __name__ == "__main__":
+    Experiment().main()
 
 
