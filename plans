@@ -84,3 +84,12 @@ Goals to reach before next meeting:
 - Ensure program is usable to begin testing constraints
 - Check that code is fully documented as needed
 
+---------------------
+  Update 5/07/2013
+---------------------
+Goals for next meeting:
+- Program is now working, keep on the lookout for bugs by trying it out more
+- Test ways to increase effeciency: reduce appending, check loops for repeated testing with constraints, reduce loops
+
+
+
