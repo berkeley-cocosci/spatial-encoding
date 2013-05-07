@@ -13,6 +13,10 @@ class Room(object):
         self.x = x
         self.y = y
 
+    def is_not_on(self, other):
+        """Returns true if self is in the same position (x, y) as other, false otherwise"""
+        return not (self.x == other.x and self.y == other.y)
+
     def is_in_back_of(self, other):
         """Returns true if self is in the back of other, false otherwise
            An object is considered in back of if its y-coordinate is greater"""
@@ -74,7 +78,9 @@ class World(object):
             return True
         if self.animals[animal2] is None:
             return True
-        if relation == "in front of":
+        if relation == 'is not on':
+            return self.animals[animal1].is_not_on(self.animals[animal2])
+        elif relation == "in front of":
             return self.animals[animal1].is_in_front_of(self.animals[animal2])
         elif relation == "in back of":
             return self.animals[animal1].is_in_back_of(self.animals[animal2])
@@ -113,6 +119,12 @@ class Experiment(object):
             animals = []
         if constraints is None:
             constraints = []
+
+        for a in animals[]:
+            for b in animals[]:
+                if b != a:
+                    constraint = (a, 'is not on', b)
+                    constraints.append(constraint)
 
         self.animals = animals
         self.constraints = constraints
