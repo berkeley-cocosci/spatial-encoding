@@ -5,7 +5,8 @@ spatial_learning.py
 """
     
 class Room(object):
-    """A Room has position (x, y) knows its relations to other Room objects"""
+    """A Room has position (x, y) knows its relations to other Room objects
+        Note that the origin is defined as the lower left corner as in Cartesian coordinates"""
 
     def __init__(self, x, y):
         """Constructs a Room with the given position (x, y)"""
@@ -200,7 +201,7 @@ class Experiment(object):
         while True:
             try:
                 constraint = raw_input("Enter constraint (or \"done\"): ")
-                if constraint == 'done':
+                if constraint == "" or constraint == 'done':
                     break
                 constraint_tuple = tuple(x.strip() for x in constraint.split(','))
                 experiment.add_constraint(constraint_tuple)
