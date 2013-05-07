@@ -90,6 +90,10 @@ Goals to reach before next meeting:
 Goals for next meeting:
 - Program is now working, keep on the lookout for bugs by trying it out more
 - Test ways to increase effeciency: reduce appending, check loops for repeated testing with constraints, reduce loops
+- Memoization: Rooms, Worlds
+    __new__ gets called before the object is even created (see example in Room in spatial_learning.py)
+    do the same thing with world
 
+- Checkout stackoverflow question on python's use of init and new
 
 
