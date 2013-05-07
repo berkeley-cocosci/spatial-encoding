@@ -3,15 +3,21 @@ spatial_learning.py
 
 
 """
-    
+
 class Room(object):
     """A Room has position (x, y) knows its relations to other Room objects
         Note that the origin is defined as the lower left corner as in Cartesian coordinates"""
 
-    def __init__(self, x, y):
+    all_rooms = {}
+
+    def __new__(cls, x, y):
         """Constructs a Room with the given position (x, y)"""
-        self.x = x
-        self.y = y
+        if (x, y) not in cls.all_rooms:
+            obj = super(Room, cls).__new__(cls)
+            obj.x = x
+            obj.y = y
+            cls.all_rooms[(x, y)] = obj
+        return cls.all_rooms[(x, y)]
 
     def is_not_on(self, other):
         """Returns true if self is in the same position (x, y) as other, false otherwise"""
