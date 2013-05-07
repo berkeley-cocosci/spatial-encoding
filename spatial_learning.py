@@ -33,7 +33,7 @@ class Room(object):
         new_room = Room(self.x, self.y)
         return new_room
 
-    def to_string(self):
+    def __str__(self):
         """Returns the string representation of this Room"""
         return "Room at (%d, %d)" % (self.x, self.y)
 
@@ -93,7 +93,7 @@ class World(object):
         new_world = World(new_animals)
         return new_world
 
-    def to_string(self):
+    def __str__(self):
         """Returns the string representation of this World"""
         output = ""
         for animal in self.animals:
@@ -102,7 +102,7 @@ class World(object):
                 if room is None:
                     output += "Room is None"
                 else:
-                    output += room.to_string()
+                    output += str(room)
                 output += "\n"
         return output
 
@@ -214,7 +214,7 @@ class Experiment(object):
         # print("worlds:\n%s" % experiment.possible_worlds)
         print(len(experiment.possible_worlds))
         for w in experiment.possible_worlds:
-            print(w.to_string())
+            print(w)
 
 if __name__ == "__main__":
     Experiment().main()

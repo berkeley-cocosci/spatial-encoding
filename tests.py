@@ -81,7 +81,7 @@ def test_copy():
     w1.set_position('dog', 1, 1)
     w2 = w1.copy()
     assert w1 is not w2 #not the same object
-    assert w1.to_string() == w2.to_string() #but identical contents
+    assert str(w1) == str(w2) #but identical contents
 
 
 
