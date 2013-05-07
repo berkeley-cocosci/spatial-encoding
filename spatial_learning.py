@@ -187,7 +187,7 @@ class Experiment(object):
         constraints = []
         while True:
             animal = raw_input("Enter animal (or \"done\"): ")
-            if animal == 'done':
+            if animal == "" or animal == 'done':
                 break
             animals.append(animal)
         experiment = Experiment(None, constraints)
