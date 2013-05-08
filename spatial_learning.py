@@ -206,8 +206,8 @@ class Experiment(object):
         animals = []
         constraints = []
         while True:
-            animal = raw_input("Enter animal (or \"done\"): ")
-            if animal == "" or animal == 'done':
+            animal = raw_input("Enter animal (return to end): ")
+            if animal == "":
                 break
             animals.append(animal)
         experiment = Experiment(None, constraints)
@@ -218,8 +218,8 @@ class Experiment(object):
         print("Valid relations are %s" % experiment.valid_relations)
         while True:
             try:
-                constraint = raw_input("Enter constraint (or \"done\"): ")
-                if constraint == "" or constraint == 'done':
+                constraint = raw_input("Enter constraint (return to end): ")
+                if constraint == "":
                     break
                 constraint_tuple = tuple(x.strip() for x in constraint.split(','))
                 experiment.add_constraint(constraint_tuple)
