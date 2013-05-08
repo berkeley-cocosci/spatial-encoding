@@ -126,8 +126,8 @@ class Experiment(object):
         if constraints is None:
             constraints = []
 
-        for a in animals[]:
-            for b in animals[]:
+        for a in animals:
+            for b in animals:
                 if b != a:
                     constraint = (a, 'is not on', b)
                     constraints.append(constraint)
@@ -238,24 +238,24 @@ class Experiment(object):
             print(w)
 
 if __name__ == "__main__":
-    #Experiment().main()
+    Experiment().main()
 
-    animals = ['cat', 'dog', 'bear', 'rabbit', 'pig', 'frog']
-    constraints = [
-        ('cat', 'left of', 'rabbit'),
-        ('pig', 'left of', 'cat'),
-        ('dog', 'in front of', 'pig'),
-        ('bear', 'right of', 'dog'),
-        ('frog', 'right of', 'bear')
-    ]
+    # animals = ['cat', 'dog', 'bear', 'rabbit', 'pig', 'frog']
+    # constraints = [
+    #     ('cat', 'left of', 'rabbit'),
+    #     ('pig', 'left of', 'cat'),
+    #     ('dog', 'in front of', 'pig'),
+    #     ('bear', 'right of', 'dog'),
+    #     ('frog', 'right of', 'bear')
+    # ]
 
-    experiment = Experiment()
-    for a in animals:
-        experiment.add_animal(a)
-    for c in constraints:
-        experiment.add_constraint(c)
+    # experiment = Experiment()
+    # for a in animals:
+    #     experiment.add_animal(a)
+    # for c in constraints:
+    #     experiment.add_constraint(c)
 
-    experiment.update()
-    for w in experiment.possible_worlds:
-        print w
-    print len(experiment.possible_worlds)
+    # experiment.update()
+    # for w in experiment.possible_worlds:
+    #     print w
+    # print len(experiment.possible_worlds)
