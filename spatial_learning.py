@@ -170,7 +170,6 @@ class Experiment(object):
 
                         if valid:
                             new_worlds.append(new_world)
-                            print new_world
 
                 if len(new_worlds) > 0:
                     for w in new_worlds:
